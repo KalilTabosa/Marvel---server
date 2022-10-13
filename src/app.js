@@ -14,10 +14,8 @@ app.get('/characters', async (req, res) => {
   try{
     const response = await fetchApi("/characters");
     const data = await response.json()
-    console.log(data);
-    res.json({
-      test: "a"
-    })
+    const resultado = data.data.results
+    res.json(resultado)
   } catch(err) {
     console.log(err);
   }

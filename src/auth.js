@@ -15,7 +15,7 @@ export const userAlreadyExists = async ({ email }) => {
         const db = await readDBAsync();
         return db.users.findIndex((user) => user.email === email) !== -1;
     } catch (_) {
-        // console.log(_);
+        
         return false
     }
 }

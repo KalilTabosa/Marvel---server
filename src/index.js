@@ -24,7 +24,7 @@ const server = http.createServer(app);
  * start server
  */
 setImmediate(() => {
-  server.listen(3000, "0.0.0.0", () => {
+  server.listen(4000, "0.0.0.0", () => {
     console.log('Express server listening on %d, in %s mode');
   });  
 });

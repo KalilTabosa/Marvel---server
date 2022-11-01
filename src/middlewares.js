@@ -1,4 +1,3 @@
-import  Jwt  from "jsonwebtoken";
 import createError from "http-errors"
 import { verifyToken } from "./auth";
 
@@ -7,9 +6,9 @@ export const logErrors = (err, req, res, next) => {
     res.status(err.statusCode || 500).json({ error:err });
 };
 
-export const checkIfIsAutenticated = () => async (req, res, next) => {
+export const checkIfIsAutenticated =  async (req, res, next) => {
     try{
-      if (req.query.hasOwnProperty("acess_token")) {
+      if (req.query && req.query.hasOwnProperty("acess_token")) {
         req.headers.authorization = `Bearer ${req.query.acess_token}`;
       }
     
@@ -26,6 +25,5 @@ export const checkIfIsAutenticated = () => async (req, res, next) => {
     } catch(err) {
      next(createError(401));
   
-     app.use(logErrors)
     }
 }

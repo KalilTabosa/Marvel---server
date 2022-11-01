@@ -80,8 +80,10 @@ app.post("/auth/signup", async (req, res, next) => {
 app.get("/private", checkIfIsAutenticated, (req, res) => {
   console.log(req.query);
   console.log(req.headers);
-  res,json({})
+  res.json({})
 })
+
+app.use(logErrors)
 
 // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImthbGlsbGVnYWxAZ21haWwuY29tIiwiaWF0IjoxNjY2OTAxMjYyfQ.dFkJ_DPgpzRXWV3kUBro6Ds4f8gJ85fRe1o7JnoZ99s
 

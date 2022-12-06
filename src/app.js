@@ -7,8 +7,11 @@ import { signToken, userAlreadyExists } from "./auth";
 import { readDBAsync, writeDBAsync } from "./DB/db";
 import { next } from "process"
 import { checkIfIsAutenticated, logErrors } from "./middlewares";
+import {cors} from cors
+import { log } from "console";
 
 const app = express();
+app.use(cors())
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -28,12 +31,14 @@ app.get('/characters', async (req, res,) => {
 
 app.post("/auth/signup",async (req, res, next) => {
   try{
+    console.log(req.body);
     const { name, email, password } = req.body;
     const userExists = await userAlreadyExists({ email });
 
     if (userExists) {
       throw "usuário existente"
     }
+    
 
     const db = await readDBAsync();
     const lastAddedUser = db.users[db.users.length - 1];
@@ -59,8 +64,9 @@ app.post("/auth/signup",async (req, res, next) => {
   app.use(logErrors)
 });
 
-app.post("/auth/signup", async (req, res, next) => {
+app.post("/auth/signin", async (req, res, next) => {
   try{
+    console.log(req.body);
     const {email} = req.body;
 
     const userExists = await userAlreadyExists({ email });

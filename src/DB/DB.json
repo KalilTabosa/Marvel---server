@@ -1,1 +1,20 @@
-{"users":[{"id":0,"name":"Kalil","email":"kalillegal@gmail.com","password":"BoraBill"}]}
+{
+    "users": [
+        {
+            "id": 0,
+            "name": "KalilTabosa",
+            "email": "kalillegal@gmail.com",
+            "password": "061222",
+            "_salt": "jznF1hqyeqrye9mT7YOBzQ==",
+            "_hashedPassword": "rKpFruBdjq7VsAXPemz/zu6h5lzfZcXePNZ1ivVbPt08nggpvrMQJbN2tLlMzsOU5+tukoQQ7MGoHenfUKr6tw=="
+        },
+        {
+            "id": 1,
+            "name": "KalilTabosa",
+            "email": "kaliltabosa@hotmail.com",
+            "password": "061222",
+            "_salt": "jf94KGMCarPvin+/nsrYtg==",
+            "_hashedPassword": "FU3dHGAp+IToJezAZnsmrCObTixZQU1x0nmZe0F9HjXbnTTW34UxwN6caezdrzmgOP09KUtfFHE7ZkgKSy4/Zg=="
+        }
+    ]
+}

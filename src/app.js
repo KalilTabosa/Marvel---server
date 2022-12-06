@@ -3,11 +3,11 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import createError from "http-errors"
 import { fetchApi } from "./api";
-import { signToken, userAlreadyExists } from "./auth";
+import { signToken, userAlreadyExists, encryptPassword, makeSalt } from "./auth";
 import { readDBAsync, writeDBAsync } from "./DB/db";
 import { next } from "process"
 import { checkIfIsAutenticated, logErrors } from "./middlewares";
-import {cors} from cors
+import cors from "cors"
 import { log } from "console";
 
 const app = express();
@@ -31,30 +31,45 @@ app.get('/characters', async (req, res,) => {
 
 app.post("/auth/signup",async (req, res, next) => {
   try{
-    console.log(req.body);
     const { name, email, password } = req.body;
+
+    if (!password) {
+      throw new Error("Password is a required field");
+    }
+
     const userExists = await userAlreadyExists({ email });
 
     if (userExists) {
       throw "usuário existente"
     }
     
-
     const db = await readDBAsync();
     const lastAddedUser = db.users[db.users.length - 1];
     const id = lastAddedUser ? lastAddedUser.id + 1 : 0;
+    const _salt = makeSalt();
+    const _hashedPassword = encryptPassword(password, _salt); 
+
+    const _user = {
+      id,
+      name,
+      email,
+      password,
+      _salt,
+      _hashedPassword
+    };
    
     const user = {
       id,
       name,
       email,
-      password
     };
 
-    db.users.push(user);
+    const acess_token = signToken({ email });
+
+    db.users.push(_user);
     
     await writeDBAsync(db);
-    const acess_token = signToken({ email });
+    
     res.status(200).json({ user, acess_token });
 
   } catch(err) {
